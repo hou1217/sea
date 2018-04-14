@@ -1,0 +1,176 @@
+<html>  
+<head>  
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>  
+  
+<style type="text/css">  
+  
+body {  
+    font-size: 12px;  
+}  
+  
+/*最外围的div*/  
+.outer {  
+    /*background-color: green;*/  
+    width: 126px;  
+    height: 156px;  
+}      
+  
+/* 导航栏 */  
+.navigateBar {  
+    /*background-color: silver;*/  
+    width: 21px;  
+    height: 156px;  
+    float: left;  
+}  
+  
+.navigateBar ul {  
+    padding: 0; /* 去掉ul的填充 */  
+    margin-left: 0px;  
+    margin-top: 0px;  
+    float: left;  
+}  
+  
+.navigateBar li {  
+    list-style-type: none;  /*去掉项目标记*/  
+    margin-top: 1px;  
+    margin-bottom: 2px; /*项目之间 间隔开*/  
+    float: left;  
+  
+    background-color: silver;  
+  
+    width: 21px;  
+    /*height: 50px;*/  
+  
+    text-align: center; /*水平居中*/  
+  
+    padding-top: 10px;  /*垂直居中, 通过padding的方式,前提是不设置高度*/  
+    padding-bottom: 11px;  
+      
+    cursor: pointer; /*鼠标箭头为 手型*/  
+}  
+  
+.list {  
+    /*background-color: gray;*/  
+    width: 101px;  
+    height: 156px;  
+    float: left;  
+    margin-left: 3px;  
+}  
+  
+.list ul li {  
+    list-style-type: none;  
+    height: 20px;  
+}  
+  
+.list ul {  
+    padding: 0; /* 去掉ul的填充 */  
+    margin-left: 0px;  
+    margin-top: 0px;  
+    float: left;  
+}  
+  
+/*初始显示第一个装超链接的 div*/  
+.zhaosheng {  
+    display: block;  
+}  
+  
+.rezhao, .chuguo {  
+    /*visibility: hidden;*/   
+    display: none;  
+}  
+  
+  
+</style>  
+  
+<script type="text/javascript">  
+      
+    var linkDivs = new Array(); // 装超链接的 3个 <div>  
+    var naviLis;    // 导航栏的 三个 <li>  
+  
+    // 初始化 linkDivs naviLis  
+    window.onload = function() {  
+  
+        linkDivs.push( document.getElementById("zhaosheng") );  
+        linkDivs.push( document.getElementById("rezhao") );  
+        linkDivs.push( document.getElementById("chuguo") );  
+        // console.info( linkDivs );  
+  
+        var naviItems = document.getElementById("naviItems");  
+        naviLis = naviItems.getElementsByTagName("li");  
+  
+        // console.info(naviLis );  
+  
+        naviLis[0].style.backgroundColor = "orange";  
+    }  
+  
+    function initStyle(exclusive) {  
+        for (var i = 0; i < linkDivs.length; i++) {  
+            if (exclusive == i) {  
+                naviLis[i].style.backgroundColor = "orange";  
+                linkDivs[i].style.display = "block";  
+                continue;  
+            }  
+            naviLis[i].style.backgroundColor = "silver";  
+            linkDivs[i].style.display = "none";  
+        };  
+    }   
+  
+    function show(exclusive) {  
+        initStyle(exclusive);  
+    }  
+  
+</script>    
+  
+</head>  
+<body>  
+---------------------------------  
+      
+<div class="outer">  
+    <div class="navigateBar">  
+        <ul>  
+            <li onmouseover="show(0)">招生</li>  
+            <li onmouseover="show(1)">热招</li>  
+            <li onmouseover="show(2)">出国</li>  
+        </ul>  
+    </div>  
+    <!-- link list -->  
+    <div class="list zhaosheng" id="zhaosheng">  
+        <ul>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+            <li><a href="#">招生招生招生招生</a></li>  
+        </ul>  
+    </div>  
+    <div class="list rezhao" id="rezhao">  
+        <ul>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+            <li><a href="#">热招热招热招热招</a></li>  
+        </ul>  
+    </div>      
+    <div class="list chuguo" id="chuguo">  
+        <ul>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+            <li><a href="#">出国出国出国出国</a></li>  
+        </ul>  
+    </div>  
+</div>  
+---------------------------------  
+</body>  
+</html>  

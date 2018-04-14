@@ -35,15 +35,15 @@
           <a class="more_btn" href="javascript:void(0)"></a>
         </div>
         <div class="top_menu_list">
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn cur">关注</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">推荐</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">上海</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">军事</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">体育</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">段子</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">健康</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">体育</a>
-          <a href="javascript:void(0)" data-channel="" data-query="" class="btn">财经</a>
+          <a href="#/" data-channel="recommend" data-query="" class="btn">推荐</a>
+          <a href="#/hot" data-channel="hot" data-query="" class="btn">热点</a>
+          <a href="#/society" data-channel="society" data-query="" class="btn">社会</a>
+          <a href="#/car" data-channel="car" data-query="" class="btn">汽车</a>
+          <a href="#/focus" data-channel="focus" data-query="" class="btn">关注</a>
+          <a href="#/shanghai" data-channel="shanghai" data-query="" class="btn">上海</a>
+          <a href="#/military" data-channel="military" data-query="" class="btn">军事</a>
+          <a href="#/sports" data-channel="sports" data-query="" class="btn">体育</a>
+          <a href="#/finance" data-channel="finance" data-query="" class="btn">财经</a>
         </div>
       </div>
       <!-- channel end -->
@@ -146,16 +146,17 @@
           </content>
         </div>
         
-        
         <!-- content end -->
       </div>
       
     </div>
   </div>
-  
-  <!-- <script src="http://assets.dc.wallan-tech.com/plugins/jquery/latest/js/jquery.min.js"></script> -->
+<!-- JavaScript -->
+<script type="text/javascript" src="../js/mobile_fun.js"></script>
+<script type="text/javascript" src="../js/router.js"></script>
 <script type="text/javascript">
-window.onload=function(){    
+window.onload=function(){
+  
   var isdrag = false;
   var NowTop = 100,
       flag   = false,
@@ -170,23 +171,25 @@ window.onload=function(){
   oDiv2.addEventListener('touchmove', thismousemove);
 
   function thismousedown(e) {
+    // event.preventDefault();
     isdrag = true;
     disY = e.touches[0].pageY;
     return false;
   }
 
   function thismousemove(e) {
+    // event.preventDefault();
     if(isdrag) {
       var x = e.touches[0].pageY - disY;
       //向下滑动
       if( x > 0 && Math.abs(x) < 120) {
          // oDiv1.css("top",(130+x)+"px");
-        oDiv1.style.transform = "translate3d(0px, "+ x +"px, 0px)";
+        oDiv1.style.transform = "translate(0px, "+ x +"px)";
         
         flag = false;
         return false;
       }else if(x >= 120 && Math.abs(x) < 156){
-        oDiv1.style.transform = "translate3d(0px, "+ x +"px, 0px)";
+        oDiv1.style.transform = "translate(0px, "+ x +"px)";
         document.querySelector(".bar1").innerHTML = '⇡';
         document.querySelector(".bar2").innerHTML = '释放刷新';
         console.log(x);
@@ -200,91 +203,113 @@ window.onload=function(){
   function thismouseup(e) {
     isdrag = false;
     if(flag){
+      document.querySelector(".refresh_btn").className += (' '+'rotate');//转动标题栏的图标
+      document.querySelector(".bar1").innerHTML = '<img src="../images/onload.gif" alt="加载中" width="38">';
+      document.querySelector(".bar2").innerHTML = '正在刷新';
       setTimeout(function () {
-        document.location.reload();//重新加载当前页面
+        document.location.reload();//1秒后重新加载当前页面
         //$(".list-content").html("内容已经重新加载");
       }, 1000);
     }else{
-      oDiv1.style.transform = "translate3d(0px, -4px, 0px)";
-    }
-    // oDiv1.animate({top: "100px"});
-     
-  
+      oDiv1.style.transform = "translate(0px, -4px)";
+    }     
   };
   //滚动加载
   window.onscroll = function(){
-　　if(getScrollTop() + getWindowHeight() == getScrollHeight()){
+　　if(getScrollTop() + getWindowHeight() >= getScrollHeight()){
 　　　ajaxJSON("GET","http://houyishuai.dev.dc.wallan-tech.com").then(function(data) 
       {
         console.log(data);
-
-        
+        let ajaxData = document.createElement("div");
+        ajaxData.innerHTML=`
+          <section class="has_action" data-hot-time="" data-group-id="" data-item-id="" data-format="">
+                <a href="javascript: void(0)" data-action-label="click_headline" data-tag="news_politics" class="article_link clearfix ">
+                  <div class="item_detail">
+                    <h3 class="dotdot line2">
+                      煤炉撤了天然气却不来，河北、山西、陕西的人为什么要白白受冻？
+                    </h3>
+                    <div class="item_info">
+                      <div>
+                        <span class="stick_label space">置顶</span>
+                        <span class="src space">生活就是娱乐</span>
+                        <span class="cmt space">评论 30</span>
+                        <span class="time" title="2018-04-12 09:15">15分钟前</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </section>
+              <section class="middle_mode has_action" data-hot-time="" data-group-id="" data-item-id="" data-format="">
+                <a href="javascript: void(0)" data-action-label="" data-tag="" class="article_link clearfix ">
+                  <div class="item_detail desc">
+                    <h3 class="dotdot line2 image-margin-right">
+                      煤炉撤了天然气却不来，河北、山西、陕西的人为什么要白白受冻？
+                    </h3>
+                    <div class="item_info">
+                      <div>
+                        <span class="hot_label space">热</span>
+                        <span class="src space">生活就是娱乐</span>
+                        <span class="cmt space">评论 30</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list_img_holder">
+                    <img src="../images/new_picture.png">
+                    <span class="video-btn"></span>
+                  </div>
+                </a>
+              </section>
+              <section class="has_action" data-hot-time="" data-group-id="" data-item-id="" data-format="">
+                <a href="javascript: void(0)" data-action-label="" data-tag="" class="article_link clearfix">
+                  <div class="item_detail">
+                    <h3 class="dotdot line2">
+                      煤炉撤了天然气却不来，河北、山西、陕西的人为什么要白白受冻？
+                    </h3>
+                    <div class="list_image">
+                      <ul class="clearfix">
+                        <li class="list_img_holder">
+                          <img src="../images/QQ20180409-0.png">
+                        </li>
+                        <li class="list_img_holder">
+                          <img src="../images/QQ20180409-1.png">
+                        </li>
+                        <li class="list_img_holder">
+                          <img src="../images/QQ20180409-2.png">
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="item_info">
+                      <div>
+                        <span class="src space">生活就是娱乐</span>
+                        <span class="cmt space">评论30</span>
+                        <span class="time" title="2018-04-12 09:34">1天前</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </section>
+              <section class="has_action" data-hot-time="" data-group-id="" data-item-id="" data-format="0">
+                <a href="javascript: void(0)" class="article_link clearfix " data-action-label="">
+                  <h3 class="dotdot line2">
+                    煤炉撤了天然气却不来，河北、山西、陕西的人为什么要白白受冻？
+                  </h3>
+                  <div class="list_img_holder_large">
+                      <img src="../images/big_img-1.png">
+                  </div>
+                  <div class="item_info">
+                    <span class="hot_label space">热</span>
+                    <span class="cmt space">评论 30</span>
+                    <span class="time" title="2018-04-11 14:09">1天前</span>
+                  </div>
+                </a>
+              </section>`;
+        document.querySelector(".list-content").append(ajaxData);   
   　　}, function(error){
         console.error('出错了', error);
       });
     }
   };
-  //滚动条在Y轴上的滚动距离
- 
-  function getScrollTop(){
-　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
-　　if(document.body){
-　　　　bodyScrollTop = document.body.scrollTop;
-　　}
-　　if(document.documentElement){
-　　　　documentScrollTop = document.documentElement.scrollTop;
-　　}
-　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-　　return scrollTop;
-  }
- 
-  //文档的总高度
-  function getScrollHeight(){
-  　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
-  　　if(document.body){
-  　　　　bodyScrollHeight = document.body.scrollHeight;
-  　　}
-  　　if(document.documentElement){
-  　　　　documentScrollHeight = document.documentElement.scrollHeight;
-  　　}
-  　　scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
-  　　return scrollHeight;
-  }
- 
-  //浏览器视口的高度
-  function getWindowHeight(){
-  　　var windowHeight = 0;
-  　　if(document.compatMode == "CSS1Compat"){
-  　　　　windowHeight = document.documentElement.clientHeight;
-  　　}else{
-  　　　　windowHeight = document.body.clientHeight;
-  　　}
-  　　return windowHeight;
-  }
-  // 封装好的AJAX方法
-  const ajaxJSON = function(method,url) {
-    const promise = new Promise(function(resolve, reject){
-      const handler = function() {
-        if (this.readyState !== 4) {
-          return;
-        }
-        if (this.status === 200) {
-          resolve(this.response);
-        } else {
-          reject(new Error(this.statusText));
-        }
-      };
-      const client = new XMLHttpRequest();
-      client.open(method, url);
-      client.onreadystatechange = handler;
-      client.responseType = "json";
-      client.setRequestHeader("Accept", "application/json");
-      /*client.setRequestHeader("WALLAN-TOKEN", "ba88626517342609e76dc8f8d751ec82");
-      client.setRequestHeader("WALLAN-DEVICENUM", "12000000000");*/
-      client.send();
-    });
-    return promise;
-  }
+  
 };
 </script>
 </body>
